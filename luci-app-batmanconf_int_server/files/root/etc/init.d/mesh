@@ -1,0 +1,27 @@
+#!/bin/sh /etc/rc.common
+START=99
+
+BAT_ST(){
+local ipaddr
+local essid
+local ap
+local channel
+config_get ipaddr $1 ipaddr
+config_get essid $1 essid
+config_get ap $1 ap
+config_get channel $1 channel
+
+iwconfig wlan0 mode ad-hoc essid $essid ap $ap channel $channel
+batctl if add wlan0
+ip link set up dev wlan0
+ip link set up dev bat0
+}
+
+start(){
+config_load batman_conf
+config_foreach BAT_ST bat_conf_1
+}
+stop(){
+sleep 1
+}
+

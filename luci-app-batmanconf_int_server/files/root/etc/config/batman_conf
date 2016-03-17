@@ -1,0 +1,5 @@
+config bat_conf_1
+        option ipaddr '192.168.123.1'
+        option essid 'batman_default'
+        option ap '02:12:34:56:78:9A'
+        option channel '1'

@@ -1,0 +1,22 @@
+#!/bin/sh /etc/rc.common
+START=99
+
+BAT_CONF(){
+local ipaddr
+local essid
+local ap
+local channel
+config_get ipaddr $1 ipaddr
+config_get essid $1 essid
+config_get ap $1 ap
+config_get channel $1 channel
+iwconfig wlan0 essid $essid ap $ap channel $channel
+}
+
+start(){
+config_load batman_conf
+config_foreach BAT_CONF bat_conf_1
+}
+stop(){
+sleep 1
+}
